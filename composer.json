@@ -1,0 +1,41 @@
+{
+  "name": "guild/laravel-util",
+  "description": "Laravel utilities",
+  "keywords": ["laravel"],
+  "license": "MIT",
+  "homepage": "https://gitlab.guildmortgage.com/php-team/laravel-util",
+  "support": {
+    "issues": "https://gitlab.guildmortgage.com/php-team/laravel-util/-/issues",
+    "source": "https://gitlab.guildmortgage.com/php-team/laravel-util"
+  },
+  "authors": [
+    {
+      "name": "Steve Oliver",
+      "email": "steve.oliver@guildmortgage.net"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.5",
+    "laravel/framework": "^7.0|^8.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^5.0|^6.0",
+    "phpunit/phpunit": "^8.0"
+  },
+  "autoload": {
+    "files": [
+      "src/Jsend/helpers.php"
+    ],
+    "psr-4": {
+      "GuildMortgage\\LaravelUtils\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "GuildMortgage\\LaravelUtils\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit tests"
+  }
+}
