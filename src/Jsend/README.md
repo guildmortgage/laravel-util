@@ -27,7 +27,7 @@ You can also add the `JsendExceptionFormatter` trait in `App\Exceptions\Handler`
 ```php
 class Handler extends ExceptionHandler
 {
-    use Shalvah\LaravelJsend\JsendExceptionFormatter;
+    use GuildMortgage\LaravelUtil\Jsend\JsendExceptionFormatter;
     
     // ...
 }
