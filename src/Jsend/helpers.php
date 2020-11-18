@@ -2,52 +2,83 @@
 
 if (!function_exists("jsend_error")) {
     /**
-     * @param string $message Error message
-     * @param string $code Optional custom error code
-     * @param string | array $data Optional data
-     * @param int $status HTTP status code
-     * @param array $extraHeaders
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * Returns an error response.
+     *
+     * @param string $message
+     *   The error message.
+     * @param int $status_code
+     *   The HTTP status code.
+     * @param null $error_code
+     *   The API-specific error code, if applicable.
+     * @param mixed $data
+     *   The data, if applicable.
+     * @param array $headers
+     *   Any headers to include in the response.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    function jsend_error($message, $code = null, $data = null, $status = 500, $extraHeaders = [])
+    function jsend_error($message = '', $status_code = Response::HTTP_INTERNAL_SERVER_ERROR, $error_code = null, $data = null, $headers = [])
     {
         $response = [
-            "status" => "error",
-            "message" => $message
+            'status' => 'error',
+            'message' => $message,
         ];
-        !is_null($code) && $response['code'] = $code;
-        !is_null($data) && $response['data'] = $data;
 
-        return response()->json($response, $status, $extraHeaders);
+        if ($error_code) {
+            $response['code'] = $error_code;
+        }
+
+        if ($data) {
+            $response['data'] = $data;
+        }
+
+        return response()->json($response, $status_code, $headers);
     }
 }
 
 if (!function_exists("jsend_fail")) {
     /**
-     * @param array $data
-     * @param int $status HTTP status code
-     * @param array $extraHeaders
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * Returns a failure response.
+     *
+     * @param mixed $data
+     *   The data.
+     * @param int $status_code
+     *   The HTTP status code.
+     * @param array $headers
+     *   Any headers to include in the response.
+     * @param null $error_code
+     *   The API-specific error code, if applicable.
+     * @return \Illuminate\Http\JsonResponse
      */
-    function jsend_fail($data, $status = 400, $extraHeaders = [])
+    function jsend_fail($data = null, $status_code = Response::HTTP_BAD_REQUEST, $headers = [], $error_code = null)
     {
         $response = [
-            "status" => "fail",
-            "data" => $data
+            'status' => 'fail',
+            'data' => $data
         ];
 
-        return response()->json($response, $status, $extraHeaders);
+        if ($error_code) {
+            $response['code'] = $error_code;
+        }
+
+        return response()->json($response, $status_code, $headers);
     }
 }
 
 if (!function_exists("jsend_success")) {
     /**
-     * @param array | Illuminate\Database\Eloquent\Model $data
-     * @param int $status HTTP status code
-     * @param array $extraHeaders
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * Returns a success response.
+     *
+     * @param mixed $data
+     *   The data.
+     * @param int $status_code
+     *   The HTTP status code.
+     * @param array $headers
+     *   The headers to include in the response.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    function jsend_success($data = [], $status = 200, $extraHeaders = [])
+    function jsend_success($data = null, $status_code = Response::HTTP_OK, $headers = [])
     {
         $response = [
             "status" => "success",
