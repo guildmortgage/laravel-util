@@ -18,7 +18,7 @@ class JsendFunctionalTest extends TestCase
         $response = jsend_success();
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals($response->getStatusCode(), 200);
-        $this->assertEquals(['status' => 'success', 'data' => []], json_decode($response->getContent(), true));
+        $this->assertEquals(['status' => 'success', 'data' => null], json_decode($response->getContent(), true));
 
         $response = jsend_success('hi');
         $this->assertInstanceOf(Response::class, $response);

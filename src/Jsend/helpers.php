@@ -17,7 +17,7 @@ if (!function_exists("jsend_error")) {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    function jsend_error($message = '', $status_code = Response::HTTP_INTERNAL_SERVER_ERROR, $error_code = null, $data = null, $headers = [])
+    function jsend_error($message = '', $status_code = 500, $error_code = null, $data = null, $headers = [])
     {
         $response = [
             'status' => 'error',
@@ -50,7 +50,7 @@ if (!function_exists("jsend_fail")) {
      *   The API-specific error code, if applicable.
      * @return \Illuminate\Http\JsonResponse
      */
-    function jsend_fail($data = null, $status_code = Response::HTTP_BAD_REQUEST, $headers = [], $error_code = null)
+    function jsend_fail($data = null, $status_code = 400, $headers = [], $error_code = null)
     {
         $response = [
             'status' => 'fail',
@@ -78,13 +78,13 @@ if (!function_exists("jsend_success")) {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    function jsend_success($data = null, $status_code = Response::HTTP_OK, $headers = [])
+    function jsend_success($data = null, $status_code = 200, $headers = [])
     {
         $response = [
             "status" => "success",
             "data" => $data
         ];
 
-        return response()->json($response, $status, $extraHeaders);
+        return response()->json($response, $status_code, $headers);
     }
 }

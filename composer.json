@@ -27,12 +27,12 @@
       "src/Jsend/helpers.php"
     ],
     "psr-4": {
-      "GuildMortgage\\LaravelUtils\\": "src/"
+      "GuildMortgage\\LaravelUtil\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "GuildMortgage\\LaravelUtils\\Tests\\": "tests/"
+      "GuildMortgage\\LaravelUtil\\Tests\\": "tests/"
     }
   },
   "scripts": {
