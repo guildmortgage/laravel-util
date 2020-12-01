@@ -4,6 +4,7 @@ namespace GuildMortgage\LaravelUtil\Jsend;
 
 use Throwable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -35,26 +36,19 @@ trait JsendExceptionFormatter
      */
     protected function prepareJsonResponse($request, Throwable $e)
     {
-        $message = 'Server Error';
-        if (config('app.debug') || $this->isHttpException($e)) {
-            $message = $e->getMessage();
+        if ($e instanceof ModelNotFoundException) {
+            return jsend_fail($e->getMessage(), Response::HTTP_NOT_FOUND);
+        }
+        if ($e instanceof NotFoundHttpException) {
+            return jsend_fail(empty($e->getMessage()) ? 'Route not found.' : $e->getMessage(), Response::HTTP_NOT_FOUND);
+        }
+        if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+            return jsend_fail($e->getMessage(), $e->getStatusCode());
         }
 
-        $data = config('app.debug') ? [
-            'exception' => get_class($e),
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-            'trace' => collect($e->getTrace())->map(function ($trace) {
-                return Arr::except($trace, ['args']);
-            })->all(),
-        ] : null;
+        Log::error(get_class($e) . ': ' . $e->getMessage());
 
-        return jsend_error(
-            $message,
-            $e->getCode(),
-            $data,
-            $this->isHttpException($e) ? $e->getStatusCode() : 500,
-            $this->isHttpException($e) ? $e->getHeaders() : []
-        );
+        return jsend_error('Something went wrong');
     }
+
 }
