@@ -1,15 +1,20 @@
-#
-# Continuous Deployment Integration YAML file!
-#
+image: docker:latest
+
+cache:
+  key: ${CI_COMMIT_REF_NAME}
+  untracked: true
+
 stages:
 - test
 
-Test (PHPUnit):
+test:7.0:
   stage: test
+  image: php:7.0
   tags:
   - php
   - php-packages
   before_script:
-  - composer install --dev
+  - curl -sS https://getcomposer.org/installer | php
+  - php composer.phar install --dev
   script:
   - ./vendor/bin/phpunit --coverage-text --colors=never
