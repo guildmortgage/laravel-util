@@ -6,8 +6,18 @@ cache:
     - vendor/
 
 before_script:
-  # Install dependencies
-  - bash ci/docker_install.sh > /dev/null
+# Install git, the php image doesn't have installed
+- apt-get update -yqq
+- apt-get install git -yqq
+
+# Install mysql driver
+- docker-php-ext-install pdo_mysql
+
+# Install composer
+- curl -sS https://getcomposer.org/installer | php
+
+# Install all project dependencies
+- php composer.phar install
 
 stages:
 - test
@@ -19,7 +29,6 @@ test:7.0:
   - dev
   - docker
   script:
-  - composer install --dev
   - ./vendor/bin/phpunit --coverage-text --colors=never
 
 
