@@ -13,6 +13,15 @@ apt-get install wget git -yqq
 curl --location --output /usr/local/bin/phpunit "https://phar.phpunit.de/phpunit.phar"
 chmod +x /usr/local/bin/phpunit
 
+# Install composer.
+wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+mv composer.phar /usr/local/bin/composer
+chmod +x /usr/local/bin/composer
+
 # Install mysql driver
 # Here you can install any other extension that you need
 docker-php-ext-install pdo_mysql
