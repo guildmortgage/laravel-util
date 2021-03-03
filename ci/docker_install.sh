@@ -25,4 +25,4 @@ chmod +x /usr/local/bin/composer
 # Install mysql driver
 # Here you can install any other extension that you need
 docker-php-ext-install pdo_mysql
-sudo pecl install xdebug
+pecl install xdebug
