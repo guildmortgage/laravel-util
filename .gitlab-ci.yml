@@ -1,0 +1,15 @@
+#
+# Continuous Deployment Integration YAML file!
+#
+stages:
+- test
+
+Test (PHPUnit):
+  stage: test
+  tags:
+  - php
+  - php-packages
+  before_script:
+  - composer install --dev
+  script:
+  - ./vendor/bin/phpunit --coverage-text --colors=never
