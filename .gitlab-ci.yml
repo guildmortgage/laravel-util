@@ -6,7 +6,7 @@ cache:
     - vendor/
 
 before_script:
-- php composer.phar install --quiet
+- composer install
 
 stages:
 - test
