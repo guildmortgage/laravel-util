@@ -6,7 +6,7 @@
 #    - vendor/
 
 before_script:
-- composer install --no-cache
+- composer install --no-progress
 
 stages:
 - test
