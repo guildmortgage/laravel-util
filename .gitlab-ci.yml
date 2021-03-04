@@ -11,6 +11,24 @@ before_script:
 stages:
 - test
 
+test:7.0:
+  stage: test
+  image: steveoliver/php-build-test-image:7.0
+  tags:
+    - dev
+    - docker
+  script:
+    - ./vendor/bin/phpunit
+
+test:7.1:
+  stage: test
+  image: steveoliver/php-build-test-image:7.1
+  tags:
+    - dev
+    - docker
+  script:
+    - ./vendor/bin/phpunit
+
 test:7.2:
   stage: test
   image: steveoliver/php-build-test-image:7.2
