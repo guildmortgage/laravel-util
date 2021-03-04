@@ -6,17 +6,6 @@ cache:
     - vendor/
 
 before_script:
-# Install git, the php image doesn't have installed
-- apt-get update -yqq
-- apt-get install git -yqq
-
-# Install mysql driver
-- docker-php-ext-install pdo_mysql
-
-# Install composer
-- curl -sS https://getcomposer.org/installer | php
-
-# Install all project dependencies
 - php composer.phar install --quiet
 
 stages:
@@ -24,7 +13,7 @@ stages:
 
 test:7.2:
   stage: test
-  image: php:7.2
+  image: steveoliver/php-build-test-image:7.2
   tags:
   - dev
   - docker
