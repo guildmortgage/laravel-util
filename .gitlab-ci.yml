@@ -17,7 +17,7 @@ before_script:
 - curl -sS https://getcomposer.org/installer | php
 
 # Install all project dependencies
-- php composer.phar install
+- php composer.phar install --quiet
 
 stages:
 - test
