@@ -15,9 +15,25 @@ test:7.2:
   stage: test
   image: steveoliver/php-build-test-image:7.2
   tags:
+    - dev
+    - docker
+  script:
+    - ./vendor/bin/phpunit
+
+test:7.3:
+  stage: test
+  image: steveoliver/php-build-test-image:7.3
+  tags:
+    - dev
+    - docker
+  script:
+    - ./vendor/bin/phpunit
+
+test:7.4:
+  stage: test
+  image: steveoliver/php-build-test-image:7.4
+  tags:
   - dev
   - docker
   script:
   - ./vendor/bin/phpunit
-
-
