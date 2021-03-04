@@ -7,7 +7,7 @@
 namespace GuildMortgage\LaravelUtil\Tests\Functional\Jsend;
 
 use Illuminate\Database\Eloquent\Model;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class JsendFunctionalTest extends TestCase
